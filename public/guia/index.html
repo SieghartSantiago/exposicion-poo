@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Guía de Lectura Móvil y Laboratorios Python — POO (Programación I)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-canvas: #090d16;
+        --bg-surface: #111827;
+        --bg-elevated: #1e293b;
+        --border-subtle: rgba(148, 163, 184, 0.22);
+        --text-primary: #f8fafc;
+        --text-secondary: #cbd5e1;
+        --text-muted: #94a3b8;
+        --accent-cyan: #38bdf8;
+        --accent-indigo: #818cf8;
+        --accent-emerald: #34d399;
+        --accent-rose: #fb7185;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 88% 0%, rgba(56, 189, 248, 0.11), transparent 40%),
+          radial-gradient(circle at 10% 25%, rgba(129, 140, 248, 0.08), transparent 38%),
+          var(--bg-canvas);
+        color: var(--text-primary);
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        font-size: 16px;
+        line-height: 1.62;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      header.topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(9, 13, 22, 0.94);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border-subtle);
+        padding: 0.6rem 1rem;
+      }
+
+      .topbar-inner {
+        max-width: 920px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.55rem;
+      }
+
+      .brand {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 800;
+        font-size: 0.96rem;
+        color: var(--text-primary);
+        text-decoration: none;
+      }
+
+      .brand span {
+        color: var(--accent-cyan);
+      }
+
+      .nav-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        min-height: 44px;
+        padding: 0.5rem 0.85rem;
+        border-radius: 10px;
+        border: 1px solid rgba(148, 163, 184, 0.34);
+        background: var(--bg-elevated);
+        color: var(--text-primary);
+        font-weight: 600;
+        font-size: 0.84rem;
+        text-decoration: none;
+        cursor: pointer;
+        touch-action: manipulation;
+      }
+
+      .btn:hover {
+        border-color: var(--accent-cyan);
+      }
+
+      .btn:focus-visible,
+      summary:focus-visible {
+        outline: 2px solid var(--accent-cyan);
+        outline-offset: 2px;
+      }
+
+      .btn-primary {
+        background: rgba(56, 189, 248, 0.16);
+        border-color: rgba(56, 189, 248, 0.55);
+        color: #e0f2fe;
+      }
+
+      .btn-emerald {
+        background: rgba(52, 211, 153, 0.16);
+        border-color: rgba(52, 211, 153, 0.55);
+        color: #d1fae5;
+      }
+
+      main {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 1.35rem 1rem 3.5rem 1rem;
+      }
+
+      .kicker {
+        display: inline-block;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        padding: 0.24rem 0.68rem;
+        border-radius: 999px;
+        background: rgba(56, 189, 248, 0.13);
+        border: 1px solid rgba(56, 189, 248, 0.35);
+        color: #7dd3fc;
+      }
+
+      h1 {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: clamp(1.55rem, 5vw, 2.3rem);
+        line-height: 1.16;
+        margin: 0.65rem 0 0.6rem 0;
+        letter-spacing: -0.02em;
+      }
+
+      h2 {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 1.28rem;
+        line-height: 1.26;
+        margin: 2.1rem 0 0.75rem 0;
+        padding-top: 0.35rem;
+        color: var(--text-primary);
+        scroll-margin-top: 4.5rem;
+      }
+
+      h3 {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 1.03rem;
+        line-height: 1.3;
+        margin: 0.25rem 0 0.45rem 0;
+        color: var(--text-primary);
+      }
+
+      p.lead {
+        color: var(--text-secondary);
+        font-size: 0.98rem;
+        margin: 0 0 1.15rem 0;
+      }
+
+      .toc-strip {
+        display: flex;
+        gap: 0.5rem;
+        overflow-x: auto;
+        padding: 0.25rem 0 0.65rem 0;
+        margin-bottom: 0.9rem;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .toc-link {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 0.4rem 0.85rem;
+        border-radius: 999px;
+        background: rgba(30, 41, 59, 0.78);
+        border: 1px solid var(--border-subtle);
+        color: var(--text-secondary);
+        font-size: 0.82rem;
+        font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .toc-link:hover {
+        color: var(--text-primary);
+        border-color: var(--accent-cyan);
+      }
+
+      .labs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+        gap: 0.95rem;
+        margin: 0.85rem 0 1.4rem 0;
+      }
+
+      .lab-box {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-top: 3px solid var(--accent-emerald);
+        border-radius: 14px;
+        padding: 1rem 1.05rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 0.75rem;
+      }
+
+      .lab-box p {
+        margin: 0;
+        font-size: 0.88rem;
+        color: var(--text-secondary);
+      }
+
+      .lab-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.55rem;
+      }
+
+      @media (max-width: 420px) {
+        .lab-actions {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: 14px;
+        padding: 1rem 1.1rem;
+        margin-bottom: 0.95rem;
+      }
+
+      .card p {
+        margin: 0.35rem 0;
+        color: var(--text-secondary);
+        font-size: 0.92rem;
+      }
+
+      .card ul {
+        margin: 0.45rem 0 0 1.1rem;
+        padding: 0;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+      }
+
+      .card li + li {
+        margin-top: 0.35rem;
+      }
+
+      .card-cyan {
+        border-left: 4px solid var(--accent-cyan);
+      }
+
+      .card-problem {
+        border-left: 4px solid var(--accent-rose);
+      }
+
+      .card-solution {
+        border-left: 4px solid var(--accent-emerald);
+      }
+
+      .card-improve {
+        border-left: 4px solid var(--accent-indigo);
+      }
+
+      .tag {
+        display: inline-block;
+        font-size: 0.73rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.2rem;
+      }
+
+      .tag-cyan {
+        color: #7dd3fc;
+      }
+
+      .tag-problem {
+        color: #fda4af;
+      }
+
+      .tag-solution {
+        color: #6ee7b7;
+      }
+
+      .tag-improve {
+        color: #a5b4fc;
+      }
+
+      pre {
+        max-width: 100%;
+        background: #0b101d;
+        border: 1px solid var(--border-subtle);
+        border-radius: 10px;
+        padding: 0.85rem;
+        overflow-x: auto;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.79rem;
+        line-height: 1.5;
+        color: #e2e8f0;
+        margin: 0.65rem 0 0 0;
+      }
+
+      code {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.87em;
+      }
+
+      :not(pre) > code {
+        color: #7dd3fc;
+        background: rgba(56, 189, 248, 0.1);
+        border: 1px solid rgba(56, 189, 248, 0.22);
+        padding: 0.05rem 0.32rem;
+        border-radius: 5px;
+      }
+
+      .pillars-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+        gap: 0.85rem;
+      }
+
+      details.deep-dive {
+        background: rgba(17, 24, 39, 0.85);
+        border: 1px solid var(--border-subtle);
+        border-radius: 12px;
+        margin-bottom: 0.75rem;
+        overflow: hidden;
+      }
+
+      details.deep-dive summary {
+        min-height: 48px;
+        padding: 0.75rem 1rem;
+        font-weight: 700;
+        font-size: 0.92rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--text-primary);
+        list-style: none;
+      }
+
+      details.deep-dive summary::-webkit-details-marker {
+        display: none;
+      }
+
+      details.deep-dive summary::after {
+        content: "+";
+        font-family: "JetBrains Mono", monospace;
+        font-size: 1.1rem;
+        color: var(--accent-cyan);
+      }
+
+      details.deep-dive[open] summary::after {
+        content: "−";
+      }
+
+      .deep-body {
+        padding: 0 1rem 1rem 1rem;
+        font-size: 0.89rem;
+        color: var(--text-secondary);
+        border-top: 1px solid rgba(148, 163, 184, 0.14);
+      }
+
+      .note-box {
+        background: rgba(30, 41, 59, 0.65);
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        border-radius: 12px;
+        padding: 0.95rem 1.05rem;
+        font-size: 0.88rem;
+        color: var(--text-secondary);
+        margin-top: 1.5rem;
+      }
+
+      footer.page-footer {
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-subtle);
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.75rem;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="#inicio">POO <span>· Programación I</span></a>
+        <nav class="nav-actions" aria-label="Navegación principal">
+          <a class="btn" href="../index.html">🖥️ Diapositivas</a>
+          <a class="btn btn-primary" href="#laboratorios">🧪 4 Labs Python</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="inicio">
+      <span class="kicker">Guía de Lectura Móvil · Unidad VI · 2026</span>
+      <h1>Programación Orientada a Objetos en Python</h1>
+      <p class="lead">
+        Material de acompañamiento diseñado para celulares, tablets y computadoras: síntesis rigurosa de los
+        6 bloques de la exposición, ejemplos ejecutables en Python y laboratorios interactivos WebAssembly sin
+        instalar nada.
+      </p>
+
+      <nav class="toc-strip" aria-label="Índice de secciones">
+        <a class="toc-link" href="#laboratorios">🧪 4 Laboratorios</a>
+        <a class="toc-link" href="#bloque-1">1. Introducción</a>
+        <a class="toc-link" href="#bloque-2">2. Clases y Objetos</a>
+        <a class="toc-link" href="#bloque-3">3. Cuatro Pilares</a>
+        <a class="toc-link" href="#bloque-4">4. SOLID y Patrones</a>
+        <a class="toc-link" href="#bloque-5">5. Trade-offs</a>
+        <a class="toc-link" href="#ampliacion">6. Ampliación y Bibliografía</a>
+      </nav>
+
+      <!-- SECCIÓN DE ACCESO DIRECTO A LOS 4 LABORATORIOS WASM -->
+      <h2 id="laboratorios">Laboratorios Interactivos Python + Pyodide</h2>
+      <p style="color: var(--text-secondary); margin: 0 0 0.75rem 0; font-size: 0.92rem;">
+        Cada laboratorio ofrece un <strong>Simulador táctil</strong> (controles guiados) y un
+        <strong>Editor Sandbox</strong> (celdas Python abiertas para modificar y reejecutar en tu navegador):
+      </p>
+
+      <div class="labs-grid">
+        <article class="lab-box">
+          <div>
+            <span class="tag tag-solution">Laboratorio 01</span>
+            <h3>Encapsulamiento e Invariantes</h3>
+            <p>
+              Compará una estructura mutable expuesta contra <code>CuentaBancaria</code> con
+              <code>@property</code> y validación atómica de sobregiros.
+            </p>
+          </div>
+          <div class="lab-actions">
+            <a class="btn btn-primary" href="../labs/01-encapsulamiento/run/index.html">🎛️ Simulador</a>
+            <a class="btn btn-emerald" href="../labs/01-encapsulamiento/edit/index.html">✏️ Código</a>
+          </div>
+        </article>
+
+        <article class="lab-box">
+          <div>
+            <span class="tag tag-solution">Laboratorio 02</span>
+            <h3>Herencia y Despacho Dinámico</h3>
+            <p>
+              Procesá lotes heterogéneos de <code>Envio(ABC)</code> sin condicionales de tipo y creá tu propia
+              subclase <code>EnvioDronUrbano</code>.
+            </p>
+          </div>
+          <div class="lab-actions">
+            <a class="btn btn-primary" href="../labs/02-herencia-polimorfismo/run/index.html">🎛️ Simulador</a>
+            <a class="btn btn-emerald" href="../labs/02-herencia-polimorfismo/edit/index.html">✏️ Código</a>
+          </div>
+        </article>
+
+        <article class="lab-box">
+          <div>
+            <span class="tag tag-solution">Laboratorio 03</span>
+            <h3>Patrón Strategy Intercambiable</h3>
+            <p>
+              Cambiá en tiempo de ejecución la política de descuento de un mismo objeto <code>Pedido</code>
+              usando composición y <code>Protocol</code>.
+            </p>
+          </div>
+          <div class="lab-actions">
+            <a class="btn btn-primary" href="../labs/03-patron-strategy/run/index.html">🎛️ Simulador</a>
+            <a class="btn btn-emerald" href="../labs/03-patron-strategy/edit/index.html">✏️ Código</a>
+          </div>
+        </article>
+
+        <article class="lab-box">
+          <div>
+            <span class="tag tag-solution">Laboratorio 04</span>
+            <h3>Comparación de 3 Paradigmas</h3>
+            <p>
+              Liquidá el mismo lote de ventas con estilo Imperativo, Orientado a Objetos y Funcional en
+              complejidad <code>O(n)</code> equivalente.
+            </p>
+          </div>
+          <div class="lab-actions">
+            <a class="btn btn-primary" href="../labs/04-comparacion-paradigmas/run/index.html">🎛️ Simulador</a>
+            <a class="btn btn-emerald" href="../labs/04-comparacion-paradigmas/edit/index.html">✏️ Código</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- BLOQUE 1 -->
+      <h2 id="bloque-1">1. Introducción al Paradigma y Evolución Histórica</h2>
+      <section class="card card-cyan">
+        <span class="tag tag-cyan">Concepto Central</span>
+        <h3>¿Qué propone la Programación Orientada a Objetos?</h3>
+        <p>
+          Un <strong>paradigma de programación</strong> es un marco conceptual que organiza cómo modelamos datos,
+          control de flujo y fronteras modulares. Mientras el estilo procedural estructura el programa como una
+          secuencia de procedimientos que operan sobre registros (aun permitiendo modularidad y tipos abstractos),
+          la <strong>POO</strong> agrupa estado interno y operaciones dentro de <strong>objetos</strong> gobernados
+          por contratos explícitos.
+        </p>
+        <ul>
+          <li><strong>Simula 67 (Dahl y Nygaard):</strong> introduce clases, instancias y subclases para simular sistemas físicos discretos.</li>
+          <li><strong>Smalltalk-72/80 (Alan Kay, Xerox PARC):</strong> acuña el término <em>Object-Oriented Programming</em> centrado en el paso de mensajes.</li>
+          <li><strong>C++ (1985), Python (1991), Java (1995), C# (2000+):</strong> llevan los objetos desde sistemas de alto rendimiento hasta arquitecturas multiparadigma modernas.</li>
+        </ul>
+      </section>
+
+      <!-- BLOQUE 2 -->
+      <h2 id="bloque-2">2. Fundamentos: Clases, Instancias y Referencias</h2>
+      <section class="card card-improve">
+        <span class="tag tag-improve">Modelo de Ejecución en Python</span>
+        <h3>Molde, Estado Independiente e Identidad</h3>
+        <p>
+          Una <strong>clase</strong> define la estructura y el comportamiento común; cada llamada a la clase
+          ejecuta <code>__init__</code> y produce una <strong>instancia</strong> con su propio diccionario o
+          espacio de estado independiente. Las variables almacenan <strong>referencias</strong> hacia esos objetos:
+        </p>
+        <pre><code>ana = CuentaBancaria("Ana Gómez", 30_000.0)
+bruno = CuentaBancaria("Bruno Díaz", 15_000.0)
+alias = ana  # No copia el objeto: referencia a la misma instancia
+
+print(alias is ana)   # True  -> misma identidad en memoria
+print(ana is bruno)   # False -> instancias independientes</code></pre>
+      </section>
+
+      <!-- BLOQUE 3 -->
+      <h2 id="bloque-3">3. Los Cuatro Pilares y Composición vs. Herencia</h2>
+      <div class="pillars-grid">
+        <section class="card card-cyan">
+          <span class="tag tag-cyan">Pilar 1 · Abstracción</span>
+          <h3>Contratos e Invariantes</h3>
+          <p>
+            Expone qué operaciones ofrece una entidad ocultando su representación física (ej. almacenar
+            <code>_kelvin &gt;= 0.0</code> internamente mientras ofrece propiedades <code>celsius</code> y
+            <code>kelvin</code> coherentes).
+          </p>
+        </section>
+
+        <section class="card card-solution">
+          <span class="tag tag-solution">Pilar 2 · Encapsulamiento</span>
+          <h3>Frontera de Validación</h3>
+          <p>
+            Impide mutaciones arbitrarias del estado. En Python, <code>_saldo</code> indica atributo interno por
+            convención (PEP 8), mientras que <code>__saldo</code> activa <em>name mangling</em>
+            (<code>_Clase__saldo</code>) para prevenir colisiones en subclases.
+          </p>
+        </section>
+
+        <section class="card card-improve">
+          <span class="tag tag-improve">Pilar 3 · Herencia y Composición</span>
+          <h3>Subtipado vs. Delegación</h3>
+          <p>
+            Reservá la herencia (<code>class Sub(Base)</code>) para relaciones genuinas de subtipado conductual
+            (<em>«es-un»</em>). Para reutilizar mecanismos sin exponer operaciones indebidas, preferí
+            <strong>composición y delegación</strong> (<em>«tiene-un»</em>).
+          </p>
+        </section>
+
+        <section class="card card-cyan">
+          <span class="tag tag-cyan">Pilar 4 · Polimorfismo</span>
+          <h3>Despacho Dinámico</h3>
+          <p>
+            Permite invocar el mismo mensaje (<code>canal.enviar(msg)</code>) sobre distintos tipos concretos y
+            resolver en tiempo de ejecución el método específico sin cadenas rígidas de <code>isinstance</code>.
+          </p>
+        </section>
+      </div>
+
+      <!-- BLOQUE 4 -->
+      <h2 id="bloque-4">4. Principios SOLID y Patrones de Diseño</h2>
+      <section class="card card-solution">
+        <span class="tag tag-solution">Cohesión y Bajo Acoplamiento</span>
+        <h3>SOLID + Strategy, Adapter y Decorator</h3>
+        <ul>
+          <li><strong>S (Responsabilidad Única):</strong> una clase debe tener una sola razón cohesiva para cambiar.</li>
+          <li><strong>O (Abierto/Cerrado):</strong> extender comportamientos agregando nuevas clases sin editar código cliente estable.</li>
+          <li><strong>L (Sustitución de Liskov):</strong> todo subtipo debe respetar las precondiciones, poscondiciones e invariantes del supertipo.</li>
+          <li><strong>I (Segregación de Interfaces) y D (Inversión de Dependencias):</strong> depender de protocolos pequeños y abstractos en lugar de detalles concretos.</li>
+          <li><strong>Strategy:</strong> encapsula algoritmos intercambiables en caliente dentro de un contexto (ej. políticas de descuento en <code>Pedido</code>).</li>
+          <li><strong>Adapter y Decorator:</strong> traducen interfaces externas incompatibles o envuelven objetos para agregar responsabilidades sin explosión de subclases.</li>
+        </ul>
+      </section>
+
+      <!-- BLOQUE 5 -->
+      <h2 id="bloque-5">5. Compromisos (Trade-offs) y Comparación Multiparadigma</h2>
+      <section class="card card-problem">
+        <span class="tag tag-problem">Criterio de Ingeniería</span>
+        <h3>¿Cuándo evitar POO y cómo convive con otros paradigmas?</h3>
+        <p>
+          La POO no es una solución universal: crear jerarquías especulativas para problemas simples introduce
+          <strong>complejidad accidental</strong> e indirección innecesaria. En scripts breves de extracción de
+          datos, cómputo numérico matricial o tuberías de transformación pura sin estado, un diseño procedural o
+          funcional suele resultar más directo y legible.
+        </p>
+        <p>
+          Tampoco deben repetirse mitos sobre memoria: un objeto no vive obligatoriamente en memoria dinámica
+          (lenguajes como C++ o Rust alojan objetos por valor en la pila, y compiladores JIT devirtualizan llamadas
+          monomórficas). En Python moderno, los tres paradigmas se complementan: objetos para resguardar fronteras
+          e invariantes, funciones puras para transformar colecciones y algoritmos imperativos claros dentro de los
+          métodos.
+        </p>
+      </section>
+
+      <!-- BLOQUE 6: NOTAS DE AMPLIACIÓN DESPLEGABLES Y BIBLIOGRAFÍA -->
+      <h2 id="ampliacion">6. Notas de Ampliación y Bibliografía Académica</h2>
+
+      <details class="deep-dive">
+        <summary><span>Ampliación 1 · Herencia Múltiple, Problema del Diamante y Algoritmo <code>C3 MRO</code></span></summary>
+        <div class="deep-body">
+          <p>
+            Cuando una clase hereda de dos superclases que comparten un ancestro común (estructura en diamante),
+            surge la ambigüedad sobre qué versión de un método debe ejecutarse primero. Python resuelve este
+            problema de forma determinista mediante la <strong>linearización C3</strong>, consultable en
+            <code>Clase.__mro__</code>, que preserva el orden local de declaración y garantiza monotonicidad
+            cooperativa junto con <code>super()</code>.
+          </p>
+        </div>
+      </details>
+
+      <details class="deep-dive">
+        <summary><span>Ampliación 2 · Tablas Virtuales (<code>vtable</code>/<code>vptr</code>) vs. Búsqueda Dinámica en Python</span></summary>
+        <div class="deep-body">
+          <p>
+            En lenguajes compilados con tipos estáticos como C++, el despacho dinámico sobre métodos
+            <code>virtual</code> suele implementarse mediante un puntero oculto por instancia (<code>vptr</code>)
+            que indexa una tabla fija de punteros a función por clase (<code>vtable</code>) en tiempo constante
+            <code>O(1)</code>. En Python, cada instancia referencia su objeto clase (<code>obj.__class__</code>) y
+            el intérprete resuelve atributos recorriendo diccionarios y el orden <code>__mro__</code> con cachés
+            especializadas en línea (PEP 659 en Python 3.11+).
+          </p>
+        </div>
+      </details>
+
+      <details class="deep-dive">
+        <summary><span>Ampliación 3 · Proyección Arquitectónica: DDD y Arquitectura Limpia / Hexagonal</span></summary>
+        <div class="deep-body">
+          <p>
+            En sistemas de mediana y gran escala, los principios vistos en esta unidad sustentan el
+            <strong>Diseño Guiado por el Dominio (DDD)</strong> —distinguiendo <em>Entidades</em> con identidad
+            propia de <em>Objetos de Valor</em> inmutables— y la <strong>Arquitectura Hexagonal (Puertos y
+            Adaptadores)</strong>, donde el núcleo de negocio define protocolos (puertos) y la infraestructura
+            externa (bases de datos, APIs HTTP, interfaces gráficas) se conecta mediante clases adaptadoras.
+          </p>
+        </div>
+      </details>
+
+      <section class="card card-improve" style="margin-top: 1.1rem;">
+        <span class="tag tag-improve">Bibliografía de Referencia</span>
+        <ul>
+          <li>Dahl, O.-J., &amp; Nygaard, K. (1966). <em>SIMULA—an ALGOL-based simulation language</em>. Communications of the ACM, 9(9), 671–678.</li>
+          <li>Goldberg, A., &amp; Robson, D. (1983). <em>Smalltalk-80: The Language and its Implementation</em>. Addison-Wesley.</li>
+          <li>Liskov, B. H., &amp; Wing, J. M. (1994). <em>A behavioral notion of subtyping</em>. ACM TOPLAS, 16(6), 1811–1841.</li>
+          <li>Gamma, E., Helm, R., Johnson, R., &amp; Vlissides, J. (1994). <em>Design Patterns: Elements of Reusable Object-Oriented Software</em>. Addison-Wesley.</li>
+          <li>Stroustrup, B. (2013). <em>The C++ Programming Language</em> (4th ed.). Addison-Wesley.</li>
+          <li>Martin, R. C. (2017). <em>Clean Architecture: A Craftsman's Guide to Software Structure and Design</em>. Prentice Hall.</li>
+          <li>Ramalho, L. (2022). <em>Fluent Python</em> (2nd ed.). O'Reilly Media · &amp; Python Software Foundation (<em>Data Model &amp; <code>typing.Protocol</code></em>).</li>
+        </ul>
+      </section>
+
+      <div class="note-box">
+        <strong>Privacidad y ejecución sin servidor:</strong> tanto esta guía como las diapositivas y los 4
+        laboratorios funcionan de manera 100 % estática en tu navegador gracias a WebAssembly (Pyodide), sin
+        enviar código a servidores externos ni requerir cuentas o claves API.
+      </div>
+
+      <footer class="page-footer">
+        <span>Programación I · Ingeniería en Informática · Unidad VI (2026)</span>
+        <a href="#inicio" style="color: var(--accent-cyan); text-decoration: none; font-weight: 600;">↑ Volver arriba</a>
+      </footer>
+    </main>
+  </body>
+</html>

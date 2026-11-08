@@ -1,0 +1,199 @@
+/* ==========================================================================
+   BASE DE LAYOUTS Y COMPONENTES SLIDEV — GEOMETRÍA ESTABLE 16:9
+   ========================================================================== */
+
+html,
+body,
+#app,
+#slideshow {
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+/* Lienzo base para todos los layouts propios (.poo-layout) */
+.slidev-layout.poo-layout {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: var(--slide-pad-y) var(--slide-pad-x);
+  background:
+    radial-gradient(circle at 90% 8%, rgba(56, 189, 248, 0.075), transparent 36%),
+    radial-gradient(circle at 8% 92%, rgba(129, 140, 248, 0.075), transparent 38%),
+    var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+/* Neutralización limpia de reglas heredadas de @slidev/theme-default */
+.slidev-layout.poo-layout h1,
+.slidev-layout.poo-layout h2,
+.slidev-layout.poo-layout h3,
+.slidev-layout.poo-layout h4 {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.slidev-layout.poo-layout h1 + p {
+  margin-top: 0;
+  margin-bottom: 0;
+  opacity: 1;
+}
+
+.slidev-layout.poo-layout p {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Código en línea: discreto en texto y limpio dentro de títulos y botones */
+.slidev-layout.poo-layout :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  color: #7dd3fc;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  padding: 0.06rem 0.34rem;
+  border-radius: 5px;
+}
+
+.slidev-layout.poo-layout h1 > code,
+.slidev-layout.poo-layout h2 > code,
+.slidev-layout.poo-layout h3 > code {
+  font-size: 0.86em;
+  padding: 0.02rem 0.28rem;
+  background: rgba(56, 189, 248, 0.08);
+  border-color: rgba(56, 189, 248, 0.2);
+}
+
+.slidev-layout.poo-layout button > code {
+  font-size: 0.9em;
+  padding: 0.01rem 0.24rem;
+  border-radius: 4px;
+}
+
+/* Etiqueta superior (Kicker): siempre una sola línea, sin deformarse */
+.poo-kicker {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  width: fit-content;
+  gap: 0.4rem;
+  font-family: var(--font-sans);
+  font-size: 0.69rem;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 0.24rem 0.64rem;
+  border-radius: 999px;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  background: var(--tint-interface);
+  color: #7dd3fc;
+}
+
+.poo-kicker--problem {
+  background: var(--tint-problem);
+  border-color: rgba(251, 113, 133, 0.38);
+  color: #fda4af;
+}
+
+.poo-kicker--valid {
+  background: var(--tint-valid);
+  border-color: rgba(52, 211, 153, 0.38);
+  color: #6ee7b7;
+}
+
+.poo-kicker--class {
+  background: var(--tint-class);
+  border-color: rgba(129, 140, 248, 0.38);
+  color: #a5b4fc;
+}
+
+/* Tarjetas base */
+.poo-card {
+  box-sizing: border-box;
+  min-width: 0;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.15rem;
+}
+
+/* Botones accesibles y estables */
+.poo-btn {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 38px;
+  padding: 0.42rem 0.88rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  line-height: 1.2;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid var(--border-strong);
+  border-style: solid !important;
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  text-decoration: none !important;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+  touch-action: manipulation;
+}
+
+.poo-btn:hover {
+  background: #27354d;
+  border-color: var(--accent-interface);
+}
+
+.poo-btn:focus-visible {
+  outline: 2px solid var(--accent-interface);
+  outline-offset: 2px;
+}
+
+.poo-btn--primary {
+  background: rgba(56, 189, 248, 0.16);
+  border-color: rgba(56, 189, 248, 0.52);
+  color: #e0f2fe;
+}
+
+.poo-btn--primary:hover {
+  background: rgba(56, 189, 248, 0.26);
+}
+
+.poo-btn--emerald {
+  background: rgba(52, 211, 153, 0.15);
+  border-color: rgba(52, 211, 153, 0.5);
+  color: #d1fae5;
+}
+
+.poo-btn--emerald:hover {
+  background: rgba(52, 211, 153, 0.25);
+}
+
+/* Transición limpia entre estados sin superposición (mode="out-in") */
+.poo-fade-enter-active,
+.poo-fade-leave-active {
+  transition:
+    opacity var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+
+.poo-fade-enter-from {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.poo-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
+}

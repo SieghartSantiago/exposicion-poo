@@ -1,0 +1,79 @@
+/* ==========================================================================
+   SISTEMA DE DISEÑO: "OBSIDIAN TECH CONFERENCE" — PROGRAMACIÓN I (POO)
+   Tokens tipográficos, cromáticos y espaciales calibrados para proyección 16:9
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap");
+
+:root {
+  /* Superficies (Contraste WCAG AAA con texto primario) */
+  --bg-canvas: #090d16;
+  --bg-surface: #111827;
+  --bg-surface-2: #0d1424;
+  --bg-elevated: #1e293b;
+  --border-subtle: rgba(148, 163, 184, 0.2);
+  --border-strong: rgba(148, 163, 184, 0.36);
+
+  /* Jerarquía de texto */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+
+  /* Acentos semánticos */
+  --accent-interface: #38bdf8; /* Cian: Interfaz pública y mensajes */
+  --accent-class: #818cf8;     /* Índigo: Estructura de clase y contrato */
+  --accent-valid: #34d399;     /* Esmeralda: Invariante preservada */
+  --accent-state: #fbbf24;     /* Ámbar: Advertencia / estado interno */
+  --accent-problem: #fb7185;   /* Coral: Error / estado inválido */
+
+  /* Tintes de superficie */
+  --tint-interface: rgba(56, 189, 248, 0.12);
+  --tint-class: rgba(129, 140, 248, 0.12);
+  --tint-valid: rgba(52, 211, 153, 0.12);
+  --tint-state: rgba(251, 191, 36, 0.12);
+  --tint-problem: rgba(251, 113, 133, 0.12);
+
+  /* Familias tipográficas */
+  --font-display: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+
+  /* Márgenes seguros y geometría sobre lienzo Slidev (980 x 552 px) */
+  --slide-pad-x: 44px;
+  --slide-pad-y: 30px;
+  --grid-gap: 22px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* Transiciones */
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --duration-fast: 160ms;
+  --duration-normal: 220ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0.01ms;
+    --duration-normal: 0.01ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html[data-reduced-motion="true"],
+html[data-reduced-motion="true"] *,
+html[data-reduced-motion="true"] *::before,
+html[data-reduced-motion="true"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}

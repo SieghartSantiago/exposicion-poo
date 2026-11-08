@@ -1,0 +1,17 @@
+# Entornos y dependencias
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+.marimo/
+__marimo__/
+
+# Artefactos generados y compilados
+dist/
+public/labs/
+.slidev/
+
+# Sistema operativo e IDE
+.DS_Store
+Thumbs.db
+*.log

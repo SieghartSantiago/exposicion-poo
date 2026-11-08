@@ -1,0 +1,19 @@
+[project]
+name = "expo-poo-programacion-1"
+version = "0.1.0"
+description = "Laboratorios interactivos en Python/WebAssembly (marimo + Pyodide) para Programación Orientada a Objetos"
+requires-python = ">=3.11"
+dependencies = [
+    "marimo>=0.25.0",
+    "uv>=0.6.0",
+]
+
+[tool.marimo.display]
+theme = "dark"
+code_editor_font_size = 14
+cell_output = "below"
+default_width = "medium"
+locale = "es"
+
+[tool.marimo.runtime]
+auto_instantiate = true

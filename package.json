@@ -1,0 +1,27 @@
+{
+  "name": "expo-poo-programacion-1",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Presentación interactiva y laboratorios Python/WASM sobre Programación Orientada a Objetos — Programación I (Ingeniería en Informática)",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/build-labs.mjs && slidev --open",
+    "dev:slides": "slidev",
+    "build:labs": "node scripts/build-labs.mjs",
+    "build": "node scripts/build-labs.mjs && slidev build && node scripts/postbuild.mjs",
+    "preview": "npx vite preview --outDir dist --port 4173",
+    "test:visual": "node tests/visual-audit.mjs"
+  },
+  "dependencies": {
+    "@iconify-json/lucide": "^1.2.152",
+    "@slidev/cli": "^53.0.0",
+    "@slidev/theme-default": "^0.25.0",
+    "qrcode": "^1.5.4",
+    "vue": "^3.5.45"
+  },
+  "devDependencies": {
+    "@types/qrcode": "^1.5.6",
+    "playwright": "^1.65.0",
+    "typescript": "^7.0.2"
+  }
+}
