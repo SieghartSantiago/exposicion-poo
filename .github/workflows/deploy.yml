@@ -1,0 +1,80 @@
+
+name: Publicar exposición POO
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Compilar presentación y laboratorios
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependencias Python
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install uv
+          uv pip install --system -r pyproject.toml marimo
+
+      - name: Instalar dependencias Node.js
+        run: npm ci
+
+      - name: Compilar para GitHub Pages
+        run: npm run build:github
+
+      - name: Verificar archivos generados
+        run: |
+          test -f dist/index.html
+          test -f dist/.nojekyll
+          test -f dist/guia/index.html
+          test -d dist/labs/shared/assets
+          find dist/labs -path '*/run/index.html' | grep -q .
+          find dist/labs -path '*/edit/index.html' | grep -q .
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Subir archivos compilados
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+
+  deploy:
+    name: Publicar sitio web
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Desplegar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

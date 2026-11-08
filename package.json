@@ -9,6 +9,7 @@
     "dev:slides": "slidev",
     "build:labs": "node scripts/build-labs.mjs",
     "build": "node scripts/build-labs.mjs && slidev build && node scripts/postbuild.mjs",
+    "build:github": "node scripts/build-labs.mjs && slidev build --base /exposicion-poo/ && node scripts/postbuild.mjs",
     "preview": "npx vite preview --outDir dist --port 4173",
     "test:visual": "node tests/visual-audit.mjs"
   },
